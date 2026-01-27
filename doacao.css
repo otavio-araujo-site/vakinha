@@ -27,6 +27,7 @@ body {
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 .container {
@@ -37,14 +38,16 @@ body {
 
 /* Header */
 .header {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
     padding: 24px 0;
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     position: sticky;
     top: 0;
-    z-index: 100;
-    border-bottom: 1px solid var(--border-color);
+    z-index: 1001;
+    box-sizing: border-box;
 }
 
 .header-content {
@@ -67,6 +70,13 @@ body {
     font-size: 24px;
 }
 
+/* Wrapper Vídeo + Minha História (lado a lado no desktop) */
+.video-story-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 /* Video Section */
 .video-section {
     width: 100%;
@@ -81,7 +91,6 @@ body {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
 .video-container video {
@@ -99,7 +108,10 @@ body {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(210, 210, 215, 0.5);
+    border-radius: 16px;
+    margin-top: 10px;
+    border:  1px solid rgba(210, 210, 215, 0.5);
+    padding: 32px;
 }
 
 .top-links-container {
@@ -384,6 +396,15 @@ body {
     gap: 12px;
 }
 
+/* Três botões: 2 Instagram na primeira linha, Ver Rifa ocupando a segunda */
+.poster-buttons--triple {
+    grid-template-columns: 1fr 1fr;
+}
+
+.poster-buttons--triple .rifa-btn {
+    grid-column: 1 / -1;
+}
+
 .instagram-btn {
     display: flex;
     align-items: center;
@@ -453,6 +474,119 @@ body {
     padding: 80px 0 40px;
 }
 
+/* Botão Ler mais sobre - escondido no mobile (história já inteira visível) */
+.story-read-more-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px 20px;
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.2);
+}
+
+.story-read-more-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+.story-read-more-btn i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.story-card--expanded .story-read-more-btn i {
+    transform: rotate(180deg);
+}
+
+/* Desktop: vídeo e história com mesma altura + botão Ler mais */
+@media (min-width: 769px) {
+    .video-story-wrapper {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 32px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 20px;
+        background: var(--bg-secondary);
+        box-sizing: border-box;
+    }
+
+    .video-story-wrapper .video-section {
+        flex: 0 0 380px;
+        width: 380px;
+        max-width: 380px;
+        height: 420px;
+        padding: 0;
+        background: transparent;
+    }
+
+    .video-story-wrapper .video-container {
+        max-width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .video-story-wrapper .video-container video {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        object-fit: contain;
+        border-radius: 16px;
+    }
+
+    .video-story-wrapper .story-section {
+        flex: 1;
+        min-width: 0;
+        padding: 0;
+        height: 420px;
+        z-index: 1000;
+    }
+
+    .video-story-wrapper .story-card {
+        max-width: none;
+        margin: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .video-story-wrapper .story-card .story-content {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .video-story-wrapper .story-read-more-btn {
+        flex-shrink: 0;
+        z-index: 1000;
+        /* visibilidade controlada pelo JS quando a história é maior que o espaço */
+    }
+
+    .video-story-wrapper .story-card.story-card--expanded {
+        height: auto;
+        overflow: visible;
+    }
+
+    .video-story-wrapper .story-card.story-card--expanded .story-content {
+        overflow: visible;
+    }
+}
+
 .story-card {
     background: var(--bg-primary);
     border-radius: 24px;
@@ -460,6 +594,7 @@ body {
     box-shadow: var(--shadow);
     max-width: 900px;
     margin: 0 auto;
+    z-index: 1000;
 }
 
 .story-card h2 {
@@ -471,6 +606,7 @@ body {
     color: var(--text-primary);
     margin-bottom: 32px;
     letter-spacing: -0.01em;
+    z-index: 1000;
 }
 
 .story-card h2 i {

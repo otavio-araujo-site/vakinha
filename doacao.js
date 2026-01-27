@@ -149,6 +149,43 @@ function showError(message) {
     }, 3000);
 }
 
+// Botão "Ler mais sobre" da história (só aparece quando o texto é maior que o espaço)
+const storyReadMoreBtn = document.querySelector('.story-read-more-btn');
+const storyCard = document.querySelector('.video-story-wrapper .story-card');
+const storyContent = document.querySelector('.video-story-wrapper .story-content');
+
+function toggleStoryReadMoreVisibility() {
+    if (!storyReadMoreBtn || !storyCard || !storyContent) return;
+    if (window.innerWidth < 769) {
+        storyReadMoreBtn.style.display = 'none';
+        return;
+    }
+    if (storyCard.classList.contains('story-card--expanded')) {
+        storyReadMoreBtn.style.display = 'flex';
+        return;
+    }
+    const overflows = storyContent.scrollHeight > storyContent.clientHeight;
+    storyReadMoreBtn.style.display = overflows ? 'flex' : 'none';
+}
+
+if (storyReadMoreBtn && storyCard) {
+    storyReadMoreBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const expanded = storyCard.classList.toggle('story-card--expanded');
+        storyReadMoreBtn.setAttribute('aria-expanded', expanded);
+        const span = storyReadMoreBtn.querySelector('span');
+        if (span) {
+            span.textContent = expanded ? 'Ler menos' : 'Ler mais sobre';
+        }
+        if (expanded) storyReadMoreBtn.style.display = 'flex';
+        else toggleStoryReadMoreVisibility();
+    });
+
+    window.addEventListener('load', toggleStoryReadMoreVisibility);
+    window.addEventListener('resize', toggleStoryReadMoreVisibility);
+    setTimeout(toggleStoryReadMoreVisibility, 100);
+}
+
 // Modal de visualização de cartazes e redirecionamento
 const posterCards = document.querySelectorAll('.poster-card');
 const posterImages = document.querySelectorAll('.poster-image-wrapper img');
@@ -227,28 +264,38 @@ function showPosterModal(imageSrc, imageAlt) {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        padding: 40px;
+        box-sizing: border-box;
         animation: fadeIn 0.3s ease-out;
         cursor: pointer;
     `;
 
     const modalContent = document.createElement('div');
     modalContent.style.cssText = `
-        max-width: 90%;
-        max-height: 90vh;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
         animation: scaleIn 0.3s ease-out;
+        box-sizing: border-box;
     `;
 
     const img = document.createElement('img');
     img.src = imageSrc;
     img.alt = imageAlt;
     img.style.cssText = `
-        width: 100%;
-        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
         object-fit: contain;
         border-radius: 16px;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        display: block;
     `;
 
     const closeBtn = document.createElement('button');
