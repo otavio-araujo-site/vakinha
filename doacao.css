@@ -67,6 +67,32 @@ body {
     font-size: 24px;
 }
 
+/* Video Section */
+.video-section {
+    width: 100%;
+    padding: 32px 0;
+    background: var(--bg-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    display: block;
+    background: #000;
+}
+
 /* Top Links Section */
 .top-links {
     padding: 32px 0;
