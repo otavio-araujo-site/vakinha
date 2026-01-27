@@ -302,8 +302,8 @@ function showPosterModal(imageSrc, imageAlt) {
     closeBtn.innerHTML = '<i class="fas fa-times"></i>';
     closeBtn.style.cssText = `
         position: absolute;
-        top: -50px;
-        right: 0;
+        top: 16px;
+        right: 16px;
         background: rgba(255, 255, 255, 0.2);
         border: none;
         width: 44px;
@@ -318,6 +318,7 @@ function showPosterModal(imageSrc, imageAlt) {
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
+        z-index: 10;
     `;
 
     closeBtn.addEventListener('mouseenter', () => {
@@ -353,10 +354,12 @@ function showPosterModal(imageSrc, imageAlt) {
     });
 
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
+        if (e.target === modal || e.target === modalContent) {
             closeModal();
         }
     });
+
+    img.addEventListener('click', (e) => e.stopPropagation());
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
