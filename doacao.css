@@ -443,6 +443,7 @@ body {
     gap: var(--space-8);
     max-width: 1400px;
     margin: 0 auto;
+    align-items: stretch;
 }
 
 .poster-card {
@@ -462,6 +463,8 @@ body {
     padding: var(--space-4);
     animation: posterCardReveal 0.7s var(--ease-out-expo) backwards;
     -webkit-font-smoothing: antialiased;
+    height: 100%;
+    min-height: 0;
 }
 
 .poster-card:nth-child(1) { animation-delay: 0.05s; }
@@ -522,6 +525,7 @@ body {
     position: relative;
     background: linear-gradient(180deg, #f5f5f7 0%, #ebebed 100%);
     border-radius: 20px;
+    flex-shrink: 0;
 }
 
 .poster-image-wrapper::before {
@@ -578,7 +582,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
-    flex: 1;
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
     transition: background 0.4s ease;
 }
 
@@ -589,6 +595,10 @@ body {
 .poster-caption {
     text-align: center;
     padding-bottom: 2px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .poster-caption p {
@@ -600,12 +610,17 @@ body {
     line-height: 1.4;
     letter-spacing: -0.02em;
     -webkit-font-smoothing: antialiased;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .poster-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-3);
+    flex-shrink: 0;
 }
 
 /* Três botões: 2 Instagram na primeira linha, Ver Rifa ocupando a segunda */
@@ -615,6 +630,11 @@ body {
 
 .poster-buttons--triple .rifa-btn {
     grid-column: 1 / -1;
+}
+
+/* Quatro botões: 2 em cima, 2 em baixo */
+.poster-buttons--four {
+    grid-template-columns: 1fr 1fr;
 }
 
 .instagram-btn {
@@ -1499,6 +1519,8 @@ body {
         margin: 0 calc(-1 * var(--space-3)) calc(-1 * var(--space-3));
         padding: var(--space-4) var(--space-4);
         gap: var(--space-4);
+        flex: 1 1 auto;
+        min-height: 0;
         border-radius: 0 0 var(--space-5) var(--space-5);
     }
 
@@ -1516,6 +1538,7 @@ body {
     .poster-caption p {
         font-size: 15px;
         font-weight: 600;
+        -webkit-line-clamp: 2;
     }
 
     .poster-buttons {
