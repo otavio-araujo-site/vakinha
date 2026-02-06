@@ -1610,6 +1610,54 @@ body {
     }
 }
 
+/* Botão flutuante "Ver rifas" - só no celular */
+.float-rifas-btn {
+    display: none;
+    position: fixed;
+    bottom: var(--space-6);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: white;
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0, 122, 255, 0.4);
+    border: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.float-rifas-btn:hover,
+.float-rifas-btn:active {
+    color: white;
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 122, 255, 0.5);
+}
+
+.float-rifas-btn i {
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .float-rifas-btn {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .float-rifas-btn {
+        display: none !important;
+    }
+}
+
 /* Smooth Scrolling */
 html {
     scroll-behavior: smooth;
